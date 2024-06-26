@@ -1,7 +1,6 @@
 package com.jug.joker.javadopexample.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -15,5 +14,10 @@ import lombok.ToString;
 public non-sealed class PurchasePart extends SecuredEntity<Long> {
     @Column(name = "name", nullable = false)
     private String name;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.PERSIST, CascadeType.REMOVE, CascadeType.REFRESH})
+    @JoinColumn(name = "purchase_id")
+    private Purchase purchase;
+
 }
     
