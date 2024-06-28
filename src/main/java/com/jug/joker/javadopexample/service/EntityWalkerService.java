@@ -36,7 +36,6 @@ public class EntityWalkerService<T> {
                             )
                     )
             );
-
             case Product product -> result = Stream.concat(
                     result,
                     propertiesIntegrationService
@@ -44,7 +43,9 @@ public class EntityWalkerService<T> {
                             .stream()
                             .flatMap(pp -> processEntityTreeToStream(pp, mapper))
             );
-            case Customer _, ProductProperties _ -> {
+            case Customer ignored -> {
+            }
+            case ProductProperties ignored -> {
             }
         }
 
@@ -58,4 +59,3 @@ public class EntityWalkerService<T> {
         return processEntityTreeToStream(entity, mapper).toList();
     }
 }
-

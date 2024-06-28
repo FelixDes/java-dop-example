@@ -22,7 +22,7 @@ public class CompositeAccessResolutionService {
         // Fetch entity
         var entityDefinition = accessCheckRequest.entityDefinition();
         var rootEntity = entityFetcher.findEntityByDefinition(entityDefinition).orElseThrow();
-        // Process entity tree
+        // Process the entity tree
         return entityWalkerService
                 .processEntityTree(rootEntity, mapper)
                 .stream()

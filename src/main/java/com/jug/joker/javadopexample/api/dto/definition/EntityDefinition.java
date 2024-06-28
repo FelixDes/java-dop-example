@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier;
 
-import static com.fasterxml.jackson.annotation.JsonSubTypes.*;
+import static com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.Constants.*;
 
 @JsonTypeInfo(
