@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
                         authorize
-                                .requestMatchers(
+                                .antMatchers(
                                         "/swagger-ui/**",
                                         "/swagger-ui.html",
                                         "/v3/api-docs/**"
@@ -46,6 +46,7 @@ public class SecurityConfig {
         UserDetails lessPrivileged = User.builder()
                 .username("user")
                 .password("{noop}admin")
+                .roles("USER")
                 .build();
 
         UserDetails productServiceAccount = User.builder()

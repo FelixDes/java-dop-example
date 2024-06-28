@@ -1,6 +1,4 @@
 package com.jug.joker.javadopexample.api.dto.definition;
 
-public sealed interface UUIDEntityDefinition extends EntityDefinition
-        permits
-        CustomerDefinition {
+public interface UUIDEntityDefinition extends EntityDefinition {
 }

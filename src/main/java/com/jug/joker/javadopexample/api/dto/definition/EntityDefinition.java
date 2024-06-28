@@ -18,7 +18,6 @@ import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.Consta
         @Type(value = PurchaseDefinition.class, name = PURCHASE),
         @Type(value = ProductPropertiesDefinition.class, name = PRODUCT_PROPERTIES),
 })
-public sealed interface EntityDefinition
-        permits LongIdEntityDefinition, UUIDEntityDefinition {
+public interface EntityDefinition {
     SecuredEntityQualifier getQualifier();
 }
