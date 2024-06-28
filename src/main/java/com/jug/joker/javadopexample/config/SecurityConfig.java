@@ -39,24 +39,24 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService() {
         UserDetails admin = User.builder()
                 .username("admin")
-                .password("admin")
+                .password("{noop}admin")
                 .roles("ADMIN")
                 .build();
 
         UserDetails lessPrivileged = User.builder()
                 .username("user")
-                .password("admin")
+                .password("{noop}admin")
                 .build();
 
         UserDetails productServiceAccount = User.builder()
                 .username("PRODUCT_SERVICE_ACCOUNT")
-                .password("admin")
+                .password("{noop}admin")
                 .roles("PRODUCT_AND_BELOW")
                 .build();
 
         UserDetails crmServiceAccount = User.builder()
                 .username("CRM_SERVICE_ACCOUNT")
-                .password("admin")
+                .password("{noop}admin")
                 .roles("CUSTOMER")
                 .build();
 

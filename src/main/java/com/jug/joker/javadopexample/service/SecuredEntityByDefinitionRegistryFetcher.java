@@ -19,7 +19,7 @@ public class SecuredEntityByDefinitionRegistryFetcher {
     private final PurchaseRepository purchaseRepository;
     private final ProductPropertiesIntegrationService productPropertiesIntegrationService;
 
-    Optional<? extends SecuredEntity> findEntityByDefinition(EntityDefinition entityDefinition) {
+    public Optional<? extends SecuredEntity> findEntityByDefinition(EntityDefinition entityDefinition) {
         return switch (entityDefinition) {
             case LongIdEntityDefinition longIdEntityDefinition -> {
                 yield switch (longIdEntityDefinition) {
