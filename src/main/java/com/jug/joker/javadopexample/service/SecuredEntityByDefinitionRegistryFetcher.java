@@ -20,17 +20,27 @@ public class SecuredEntityByDefinitionRegistryFetcher {
     private final ProductPropertiesIntegrationService productPropertiesIntegrationService;
 
     public Optional<? extends SecuredEntity> findEntityByDefinition(EntityDefinition entityDefinition) {
-        return switch (entityDefinition) {
-            case LongIdEntityDefinition longIdEntityDefinition -> {
-                yield switch (longIdEntityDefinition) {
-                    case ProductDefinition def -> productRepository.findById(def.id());
-                    case PurchaseDefinition def -> purchaseRepository.findById(def.id());
-                    case ProductPropertiesDefinition def -> productPropertiesIntegrationService.findById(def.id());
-                };
+        Optional<? extends SecuredEntity> result;
+
+        if (entityDefinition instanceof LongIdEntityDefinition longIdEntityDefinition) {
+            if (longIdEntityDefinition instanceof ProductDefinition def) {
+                result = productRepository.findById(def.id());
+            } else if (longIdEntityDefinition instanceof PurchaseDefinition def) {
+                result = purchaseRepository.findById(def.id());
+            } else if (longIdEntityDefinition instanceof ProductPropertiesDefinition def) {
+                result = productPropertiesIntegrationService.findById(def.id());
+            } else {
+                throw new RuntimeException("Absurdly impossible");
             }
-            case UUIDEntityDefinition uuidEntityDefinition -> switch (uuidEntityDefinition) {
-                case CustomerDefinition def -> customerRepository.findById(def.id());
-            };
-        };
+        } else if (entityDefinition instanceof UUIDEntityDefinition uuidEntityDefinition) {
+            if (uuidEntityDefinition instanceof CustomerDefinition def) {
+                result = customerRepository.findById(def.id());
+            } else {
+                throw new RuntimeException("Absurdly impossible");
+            }
+        } else {
+            throw new RuntimeException("Absurdly impossible");
+        }
+        return result;
     }
 }

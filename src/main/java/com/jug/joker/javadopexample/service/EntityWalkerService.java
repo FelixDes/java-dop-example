@@ -24,8 +24,8 @@ public class EntityWalkerService<T> {
     ) {
         var result = Stream.of(mapper.apply(entity));
 
-        switch (entity) {
-            case Purchase purchase -> result = Stream.concat(
+        if (entity instanceof Purchase purchase) {
+            result = Stream.concat(
                     result, Stream.concat(
                             purchase.products()
                                     .stream()
@@ -36,17 +36,18 @@ public class EntityWalkerService<T> {
                             )
                     )
             );
-            case Product product -> result = Stream.concat(
+        } else if (entity instanceof Product product) {
+            result = Stream.concat(
                     result,
                     propertiesIntegrationService
                             .findAllByProductId(product.id())
                             .stream()
                             .flatMap(pp -> processEntityTreeToStream(pp, mapper))
             );
-            case Customer ignored -> {
-            }
-            case ProductProperties ignored -> {
-            }
+        } else if (entity instanceof Customer || entity instanceof ProductProperties) {
+            // Nowhere to step into
+        } else {
+            throw new RuntimeException("Absurdly impossible");
         }
 
         return result;
