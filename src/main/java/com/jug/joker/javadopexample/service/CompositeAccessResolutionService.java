@@ -16,11 +16,11 @@ public class CompositeAccessResolutionService {
 
     public boolean checkAccess(AccessCheckRequest accessCheckRequest) {
         // Build mapper
-        var accessType = accessCheckRequest.actionType();
+        var accessType = accessCheckRequest.getActionType();
         var authorities = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
         var mapper = mapperResolver.getMapperByAccessTypeAndRoleSet(accessType, authorities);
         // Fetch entity
-        var entityDefinition = accessCheckRequest.entityDefinition();
+        var entityDefinition = accessCheckRequest.getEntityDefinition();
         var rootEntity = entityFetcher.findEntityByDefinition(entityDefinition).orElseThrow();
         // Process the entity tree
         return entityWalkerService

@@ -22,19 +22,27 @@ public class SecuredEntityByDefinitionRegistryFetcher {
     public Optional<? extends SecuredEntity> findEntityByDefinition(EntityDefinition entityDefinition) {
         Optional<? extends SecuredEntity> result;
 
-        if (entityDefinition instanceof LongIdEntityDefinition longIdEntityDefinition) {
-            if (longIdEntityDefinition instanceof ProductDefinition def) {
-                result = productRepository.findById(def.id());
-            } else if (longIdEntityDefinition instanceof PurchaseDefinition def) {
-                result = purchaseRepository.findById(def.id());
-            } else if (longIdEntityDefinition instanceof ProductPropertiesDefinition def) {
-                result = productPropertiesIntegrationService.findById(def.id());
+        if (entityDefinition instanceof LongIdEntityDefinition) {
+            var longIdEntityDefinition = (LongIdEntityDefinition) entityDefinition;
+            if (longIdEntityDefinition instanceof ProductDefinition) {
+                result = productRepository.findById(
+                        ((ProductDefinition) longIdEntityDefinition).getId()
+                );
+            } else if (longIdEntityDefinition instanceof PurchaseDefinition) {
+                result = purchaseRepository.findById(
+                        ((PurchaseDefinition) longIdEntityDefinition).getId()
+                );
+            } else if (longIdEntityDefinition instanceof ProductPropertiesDefinition) {
+                result = productPropertiesIntegrationService.findById(
+                        ((ProductPropertiesDefinition) longIdEntityDefinition).getId()
+                );
             } else {
                 throw new RuntimeException("Absurdly impossible");
             }
-        } else if (entityDefinition instanceof UUIDEntityDefinition uuidEntityDefinition) {
-            if (uuidEntityDefinition instanceof CustomerDefinition def) {
-                result = customerRepository.findById(def.id());
+        } else if (entityDefinition instanceof UUIDEntityDefinition) {
+            var uuidEntityDefinition = (UUIDEntityDefinition) entityDefinition;
+            if (uuidEntityDefinition instanceof CustomerDefinition) {
+                result = customerRepository.findById(((CustomerDefinition) entityDefinition).getId());
             } else {
                 throw new RuntimeException("Absurdly impossible");
             }

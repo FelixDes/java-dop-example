@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @RequiredArgsConstructor
@@ -24,23 +25,25 @@ public class EntityWalkerService<T> {
     ) {
         var result = Stream.of(mapper.apply(entity));
 
-        if (entity instanceof Purchase purchase) {
+        if (entity instanceof Purchase) {
+            var purchase = (Purchase) entity;
             result = Stream.concat(
                     result, Stream.concat(
-                            purchase.products()
+                            purchase.getProducts()
                                     .stream()
                                     .flatMap(p -> processEntityTreeToStream(p, mapper)),
                             processEntityTreeToStream(
-                                    customerRepository.findById(purchase.customerId().getId()).orElseThrow(),
+                                    customerRepository.findById(purchase.getCustomerId().getId()).orElseThrow(),
                                     mapper
                             )
                     )
             );
-        } else if (entity instanceof Product product) {
+        } else if (entity instanceof Product) {
+            var product = (Product) entity;
             result = Stream.concat(
                     result,
                     propertiesIntegrationService
-                            .findAllByProductId(product.id())
+                            .findAllByProductId(product.getId())
                             .stream()
                             .flatMap(pp -> processEntityTreeToStream(pp, mapper))
             );
@@ -57,6 +60,6 @@ public class EntityWalkerService<T> {
             SecuredEntity entity,
             Function<SecuredEntity, T> mapper
     ) {
-        return processEntityTreeToStream(entity, mapper).toList();
+        return processEntityTreeToStream(entity, mapper).collect(Collectors.toList());
     }
 }

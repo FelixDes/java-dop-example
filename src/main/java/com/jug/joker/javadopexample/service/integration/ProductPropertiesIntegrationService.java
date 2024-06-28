@@ -21,7 +21,7 @@ public class ProductPropertiesIntegrationService {
             .values()
             .stream()
             .collect(Collectors.toMap(
-                    ProductProperties::id,
+                    ProductProperties::getId,
                     Function.identity()
             ));
 

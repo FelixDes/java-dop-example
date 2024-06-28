@@ -1,13 +1,15 @@
 package com.jug.joker.javadopexample.model;
 
 import com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier;
+import lombok.Data;
 import org.springframework.data.annotation.Id;
 
-public record Product(
-        @Id
-        Long id,
-        String name
-) implements SecuredEntity {
+@Data
+public final class Product implements SecuredEntity {
+    @Id
+    private final Long id;
+    private final String name;
+
     @Override
     public SecuredEntityQualifier getQualifier() {
         return SecuredEntityQualifier.PRODUCT;
