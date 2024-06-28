@@ -1,7 +1,7 @@
 package com.jug.joker.javadopexample.repository;
 
-import com.jug.joker.javadopexample.model.entity.Purchase;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.jug.joker.javadopexample.model.Purchase;
+import org.springframework.data.repository.CrudRepository;
 
-public interface PurchaseRepository extends JpaRepository<Purchase, Long> {
+public interface PurchaseRepository extends CrudRepository<Purchase, Long> {
 }

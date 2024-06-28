@@ -1,10 +1,8 @@
 spring:
   application.name: java-dop-example
   datasource:
-    url: jdbc:postgresql://localhost:5432/db
-    username: pg
-    password: pg
-    driver-class-name: org.postgresql.Driver
-  jpa:
-    hibernate:
-      ddl-auto: create-drop
+    url: jdbc:h2:mem:testdb
+    username: sa
+    password: password
+
+access-resolution: random # random / gpt

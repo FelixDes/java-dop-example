@@ -1,44 +1,50 @@
 package com.jug.joker.javadopexample.service;
 
-import com.jug.joker.javadopexample.model.entity.Customer;
-import com.jug.joker.javadopexample.model.entity.Purchase;
-import com.jug.joker.javadopexample.model.entity.PurchasePart;
-import com.jug.joker.javadopexample.model.entity.SecuredEntity;
+import com.jug.joker.javadopexample.model.*;
+import com.jug.joker.javadopexample.repository.CustomerRepository;
+import com.jug.joker.javadopexample.service.integration.ProductPropertiesIntegrationService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.function.Function;
 import java.util.stream.Stream;
 
-@Slf4j
 @RequiredArgsConstructor
 @Service
+@Transactional(readOnly = true)
 public class EntityWalkerService<T> {
+    private final CustomerRepository customerRepository;
+    private final ProductPropertiesIntegrationService propertiesIntegrationService;
+
     private Stream<T> processEntityTreeToStream(
-            SecuredEntity<?> entity,
-            Function<SecuredEntity<?>, T> mapper
+            SecuredEntity entity,
+            Function<SecuredEntity, T> mapper
     ) {
         var result = Stream.of(mapper.apply(entity));
 
         switch (entity) {
-            case Purchase purchase -> {
-                var beneathLayerResult = Stream.concat(
-                        purchase.getPurchaseParts()
-                                .stream()
-                                .flatMap(p -> processEntityTreeToStream(p, mapper)),
-                        purchase.getCustomers()
-                                .stream()
-                                .flatMap(p -> processEntityTreeToStream(p, mapper))
-                );
+            case Purchase purchase -> result = Stream.concat(
+                    result, Stream.concat(
+                            purchase.products()
+                                    .stream()
+                                    .flatMap(p -> processEntityTreeToStream(p, mapper)),
+                            processEntityTreeToStream(
+                                    customerRepository.findById(purchase.customerId().getId()).orElseThrow(),
+                                    mapper
+                            )
+                    )
+            );
 
-                result = Stream.concat(
-                        result,
-                        beneathLayerResult
-                );
-            }
-            case PurchasePart _, Customer _ -> {
+            case Product product -> result = Stream.concat(
+                    result,
+                    propertiesIntegrationService
+                            .findAllByProductId(product.id())
+                            .stream()
+                            .flatMap(pp -> processEntityTreeToStream(pp, mapper))
+            );
+            case Customer _, ProductProperties _ -> {
             }
         }
 
@@ -46,8 +52,8 @@ public class EntityWalkerService<T> {
     }
 
     public List<T> processEntityTree(
-            SecuredEntity<?> entity,
-            Function<SecuredEntity<?>, T> mapper
+            SecuredEntity entity,
+            Function<SecuredEntity, T> mapper
     ) {
         return processEntityTreeToStream(entity, mapper).toList();
     }

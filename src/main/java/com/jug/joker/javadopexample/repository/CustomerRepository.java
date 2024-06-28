@@ -1,7 +1,9 @@
 package com.jug.joker.javadopexample.repository;
 
-import com.jug.joker.javadopexample.model.entity.Customer;
-import org.springframework.data.jpa.repository.JpaRepository;
+import com.jug.joker.javadopexample.model.Customer;
+import org.springframework.data.repository.CrudRepository;
 
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+import java.util.UUID;
+
+public interface CustomerRepository extends CrudRepository<Customer, UUID>  {
 }
