@@ -23,13 +23,13 @@ public class SecuredEntityByDefinitionRegistryFetcher {
         return switch (entityDefinition) {
             case LongIdEntityDefinition longIdEntityDefinition -> {
                 yield switch (longIdEntityDefinition) {
-                    case ProductDefinition def -> productRepository.findById(def.id());
-                    case PurchaseDefinition def -> purchaseRepository.findById(def.id());
-                    case ProductPropertiesDefinition def -> productPropertiesIntegrationService.findById(def.id());
+                    case ProductDefinition(long id) -> productRepository.findById(id);
+                    case PurchaseDefinition(long id) -> purchaseRepository.findById(id);
+                    case ProductPropertiesDefinition(long id) -> productPropertiesIntegrationService.findById(id);
                 };
             }
             case UUIDEntityDefinition uuidEntityDefinition -> switch (uuidEntityDefinition) {
-                case CustomerDefinition def -> customerRepository.findById(def.id());
+                case CustomerDefinition(UUID id) -> customerRepository.findById(id);
             };
         };
     }

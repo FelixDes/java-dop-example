@@ -25,21 +25,26 @@ public class EntityWalkerService<T> {
         var result = Stream.of(mapper.apply(entity));
 
         switch (entity) {
-            case Purchase purchase -> result = Stream.concat(
+            case Purchase(
+                    var ignored,
+                    var products,
+                    var customerRef
+            ) -> result = Stream.concat(
                     result, Stream.concat(
-                            purchase.products()
-                                    .stream()
+                            products.stream()
                                     .flatMap(p -> processEntityTreeToStream(p, mapper)),
                             processEntityTreeToStream(
-                                    customerRepository.findById(purchase.customerId().getId()).orElseThrow(),
+                                    customerRepository.findById(customerRef.getId()).orElseThrow(),
                                     mapper
                             )
                     )
             );
-            case Product product -> result = Stream.concat(
+            case Product(
+                    Long id,
+                    var ignored
+            ) -> result = Stream.concat(
                     result,
-                    propertiesIntegrationService
-                            .findAllByProductId(product.id())
+                    propertiesIntegrationService.findAllByProductId(id)
                             .stream()
                             .flatMap(pp -> processEntityTreeToStream(pp, mapper))
             );
