@@ -1,7 +1,7 @@
 package com.jug.joker.javadopexample.api.dto.definition;
 
 
-public sealed interface LongIdEntityDefinition extends EntityDefinition
+public sealed interface LongIdEntityDefinition extends EntityDefinition<Long>
         permits
         ProductDefinition,
         ProductPropertiesDefinition,
