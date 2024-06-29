@@ -1,6 +1,8 @@
 package com.jug.joker.javadopexample.api.dto.definition;
 
-public sealed interface UUIDEntityDefinition extends EntityDefinition
+import java.util.UUID;
+
+public sealed interface UUIDEntityDefinition extends EntityDefinition<UUID>
         permits
         CustomerDefinition {
 }

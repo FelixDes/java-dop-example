@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
-import java.util.UUID;
 
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
@@ -22,7 +21,7 @@ public class SecuredEntityByDefinitionRegistryFetcher {
     private final PurchaseRepository purchaseRepository;
     private final ProductPropertiesIntegrationService productPropertiesIntegrationService;
 
-    public Optional<? extends SecuredEntity> findEntityByDefinition(EntityDefinition entityDefinition) {
+    public Optional<? extends SecuredEntity> findEntityByDefinition(EntityDefinition<?> entityDefinition) {
         Optional<? extends SecuredEntity> result;
 
         if (entityDefinition instanceof LongIdEntityDefinition longIdEntityDefinition) {
