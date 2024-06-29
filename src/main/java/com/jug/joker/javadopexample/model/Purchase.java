@@ -12,7 +12,7 @@ public record Purchase(
         @Id
         Long id,
         @MappedCollection(idColumn = "PURCHASE_ID")
-        Set<Product> products,
+        Set<ProductRef> products,
         AggregateReference<Customer, UUID> customerId
 ) implements SecuredEntity {
     @Override

@@ -7,8 +7,14 @@ values (select id from CUSTOMER where name = 'Brian'),
        (select id from CUSTOMER where name = 'Alex'),
        (select id from CUSTOMER where name = 'Alex');
 
-insert into PRODUCT(NAME, PURCHASE_ID)
-values ('headphones', 1),
-       ('smartphone', 1),
-       ('notebook', 2),
-       ('charger', 3);
+insert into PRODUCT(NAME)
+values ('headphones'),
+       ('smartphone'),
+       ('notebook'),
+       ('charger');
+
+insert into PURCHASE_PRODUCT(PRODUCT_ID, PURCHASE_ID)
+values (1, 1),
+       (2, 1),
+       (3, 2),
+       (4, 3);
