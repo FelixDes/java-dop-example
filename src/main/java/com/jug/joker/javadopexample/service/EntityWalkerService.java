@@ -2,6 +2,7 @@ package com.jug.joker.javadopexample.service;
 
 import com.jug.joker.javadopexample.model.*;
 import com.jug.joker.javadopexample.repository.CustomerRepository;
+import com.jug.joker.javadopexample.repository.ProductRepository;
 import com.jug.joker.javadopexample.service.integration.ProductPropertiesIntegrationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import java.util.stream.Stream;
 @Transactional(readOnly = true)
 public class EntityWalkerService<T> {
     private final CustomerRepository customerRepository;
+    private final ProductRepository productRepository;
     private final ProductPropertiesIntegrationService propertiesIntegrationService;
 
     private Stream<T> processEntityTreeToStream(
@@ -31,6 +33,7 @@ public class EntityWalkerService<T> {
                     result, Stream.concat(
                             purchase.getProducts()
                                     .stream()
+                                    .flatMap(ref -> productRepository.findById(ref.getId()).stream())
                                     .flatMap(p -> processEntityTreeToStream(p, mapper)),
                             processEntityTreeToStream(
                                     customerRepository.findById(purchase.getCustomerId().getId()).orElseThrow(),

@@ -4,10 +4,12 @@ import com.jug.joker.javadopexample.api.dto.AccessCheckRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.function.Predicate;
 
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class CompositeAccessResolutionService {
     private final EntityWalkerService<Boolean> entityWalkerService;

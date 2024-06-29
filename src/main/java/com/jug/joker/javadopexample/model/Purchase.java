@@ -14,7 +14,7 @@ public final class Purchase implements SecuredEntity {
     @Id
     private final Long id;
     @MappedCollection(idColumn = "PURCHASE_ID")
-    private final Set<Product> products;
+    private final Set<ProductRef> products;
     private final AggregateReference<Customer, UUID> customerId;
 
 
