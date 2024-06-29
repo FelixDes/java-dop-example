@@ -53,7 +53,7 @@ public class EntityWalkerService<T> {
         } else if (entity instanceof Customer || entity instanceof ProductProperties) {
             // Nowhere to step into
         } else {
-            throw new RuntimeException("Absurdly impossible");
+            throw new RuntimeException("Not expected");
         }
 
         return result;

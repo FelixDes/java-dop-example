@@ -5,7 +5,7 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier;
 
 import static com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.*;
+import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.Fields;
 
 @JsonTypeInfo(
         use = JsonTypeInfo.Id.NAME,
@@ -18,6 +18,7 @@ import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.*;
         @Type(value = PurchaseDefinition.class, name = Fields.PURCHASE),
         @Type(value = ProductPropertiesDefinition.class, name = Fields.PRODUCT_PROPERTIES),
 })
-public interface EntityDefinition {
+public interface EntityDefinition<T> {
+    T getId();
     SecuredEntityQualifier getQualifier();
 }

@@ -21,35 +21,35 @@ public class SecuredEntityByDefinitionRegistryFetcher {
     private final PurchaseRepository purchaseRepository;
     private final ProductPropertiesIntegrationService productPropertiesIntegrationService;
 
-    public Optional<? extends SecuredEntity> findEntityByDefinition(EntityDefinition entityDefinition) {
+    public Optional<? extends SecuredEntity> findEntityByDefinition(EntityDefinition<?> entityDefinition) {
         Optional<? extends SecuredEntity> result;
 
         if (entityDefinition instanceof LongIdEntityDefinition) {
             var longIdEntityDefinition = (LongIdEntityDefinition) entityDefinition;
             if (longIdEntityDefinition instanceof ProductDefinition) {
                 result = productRepository.findById(
-                        ((ProductDefinition) longIdEntityDefinition).getId()
+                        longIdEntityDefinition.getId()
                 );
             } else if (longIdEntityDefinition instanceof PurchaseDefinition) {
                 result = purchaseRepository.findById(
-                        ((PurchaseDefinition) longIdEntityDefinition).getId()
+                        longIdEntityDefinition.getId()
                 );
             } else if (longIdEntityDefinition instanceof ProductPropertiesDefinition) {
                 result = productPropertiesIntegrationService.findById(
-                        ((ProductPropertiesDefinition) longIdEntityDefinition).getId()
+                        longIdEntityDefinition.getId()
                 );
             } else {
-                throw new RuntimeException("Absurdly impossible");
+                throw new RuntimeException("Not expected");
             }
         } else if (entityDefinition instanceof UUIDEntityDefinition) {
             var uuidEntityDefinition = (UUIDEntityDefinition) entityDefinition;
             if (uuidEntityDefinition instanceof CustomerDefinition) {
                 result = customerRepository.findById(((CustomerDefinition) entityDefinition).getId());
             } else {
-                throw new RuntimeException("Absurdly impossible");
+                throw new RuntimeException("Not expected");
             }
         } else {
-            throw new RuntimeException("Absurdly impossible");
+            throw new RuntimeException("Not expected");
         }
         return result;
     }

@@ -1,4 +1,6 @@
 package com.jug.joker.javadopexample.api.dto.definition;
 
-public interface UUIDEntityDefinition extends EntityDefinition {
+import java.util.UUID;
+
+public interface UUIDEntityDefinition extends EntityDefinition<UUID> {
 }

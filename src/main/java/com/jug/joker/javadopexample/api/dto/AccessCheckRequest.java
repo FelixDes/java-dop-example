@@ -5,6 +5,6 @@ import lombok.Data;
 
 @Data
 public final class AccessCheckRequest {
-    private final EntityDefinition entityDefinition;
+    private final EntityDefinition<?> entityDefinition;
     private final ActionType actionType;
 }
