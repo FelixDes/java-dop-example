@@ -8,10 +8,13 @@ import com.jug.joker.javadopexample.repository.PurchaseRepository;
 import com.jug.joker.javadopexample.service.integration.ProductPropertiesIntegrationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 @Service
 public class SecuredEntityByDefinitionRegistryFetcher {
     private final CustomerRepository customerRepository;
