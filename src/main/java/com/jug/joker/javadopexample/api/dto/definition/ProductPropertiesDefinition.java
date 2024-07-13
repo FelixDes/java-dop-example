@@ -6,7 +6,6 @@ import com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier;
 public record ProductPropertiesDefinition(
         Long id
 ) implements LongIdEntityDefinition {
-    @JsonCreator
     public ProductPropertiesDefinition {
         if (id <= 0) throw new IllegalArgumentException("id must be positive");
     }
