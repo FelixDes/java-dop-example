@@ -2,6 +2,8 @@ package com.jug.joker.javadopexample.api.dto.definition;
 
 import com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier;
 
+import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.*;
+
 public record PurchaseDefinition(
         Long id
 ) implements LongIdEntityDefinition {
@@ -11,6 +13,6 @@ public record PurchaseDefinition(
 
     @Override
     public SecuredEntityQualifier getQualifier() {
-        return SecuredEntityQualifier.PURCHASE;
+        return PURCHASE;
     }
 }
