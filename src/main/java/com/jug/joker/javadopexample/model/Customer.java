@@ -6,6 +6,8 @@ import org.springframework.data.annotation.Id;
 
 import java.util.UUID;
 
+import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.*;
+
 @Data
 public final class Customer implements SecuredEntity {
     @Id
@@ -14,6 +16,6 @@ public final class Customer implements SecuredEntity {
 
     @Override
     public SecuredEntityQualifier getQualifier() {
-        return SecuredEntityQualifier.CUSTOMER;
+        return CUSTOMER;
     }
 }

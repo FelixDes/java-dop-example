@@ -9,6 +9,8 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 import java.util.Set;
 import java.util.UUID;
 
+import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.*;
+
 @Data
 public final class Purchase implements SecuredEntity {
     @Id
@@ -20,7 +22,6 @@ public final class Purchase implements SecuredEntity {
 
     @Override
     public SecuredEntityQualifier getQualifier() {
-        return SecuredEntityQualifier.PURCHASE;
+        return PURCHASE;
     }
-
 }

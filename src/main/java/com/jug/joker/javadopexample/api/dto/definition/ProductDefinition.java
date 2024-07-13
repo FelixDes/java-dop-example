@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier;
 import lombok.Data;
 
+import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.*;
 
 @Data
 public final class ProductDefinition implements LongIdEntityDefinition {
@@ -17,6 +18,6 @@ public final class ProductDefinition implements LongIdEntityDefinition {
 
     @Override
     public SecuredEntityQualifier getQualifier() {
-        return SecuredEntityQualifier.PRODUCT;
+        return PRODUCT;
     }
 }

@@ -4,6 +4,8 @@ import com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 
+import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.*;
+
 @Data
 public final class Product implements SecuredEntity {
     @Id
@@ -12,6 +14,6 @@ public final class Product implements SecuredEntity {
 
     @Override
     public SecuredEntityQualifier getQualifier() {
-        return SecuredEntityQualifier.PRODUCT;
+        return PRODUCT;
     }
 }

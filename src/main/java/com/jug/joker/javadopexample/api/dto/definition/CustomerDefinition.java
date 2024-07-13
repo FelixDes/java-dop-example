@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.UUID;
 
+import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.*;
+
 @NoArgsConstructor(force = true)
 @Data
 public final class CustomerDefinition implements UUIDEntityDefinition {
@@ -13,6 +15,6 @@ public final class CustomerDefinition implements UUIDEntityDefinition {
 
     @Override
     public SecuredEntityQualifier getQualifier() {
-        return SecuredEntityQualifier.CUSTOMER;
+        return CUSTOMER;
     }
 }
