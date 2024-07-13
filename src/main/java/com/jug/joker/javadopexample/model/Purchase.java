@@ -8,6 +8,8 @@ import org.springframework.data.relational.core.mapping.MappedCollection;
 import java.util.Set;
 import java.util.UUID;
 
+import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.*;
+
 public record Purchase(
         @Id
         Long id,
@@ -17,6 +19,6 @@ public record Purchase(
 ) implements SecuredEntity {
     @Override
     public SecuredEntityQualifier getQualifier() {
-        return SecuredEntityQualifier.PURCHASE;
+        return PURCHASE;
     }
 }

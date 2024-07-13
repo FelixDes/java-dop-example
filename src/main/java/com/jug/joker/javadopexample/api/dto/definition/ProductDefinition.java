@@ -3,6 +3,8 @@ package com.jug.joker.javadopexample.api.dto.definition;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier;
 
+import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.*;
+
 public record ProductDefinition(
         Long id
 ) implements LongIdEntityDefinition {
@@ -12,6 +14,6 @@ public record ProductDefinition(
 
     @Override
     public SecuredEntityQualifier getQualifier() {
-        return SecuredEntityQualifier.PRODUCT;
+        return PRODUCT;
     }
 }
