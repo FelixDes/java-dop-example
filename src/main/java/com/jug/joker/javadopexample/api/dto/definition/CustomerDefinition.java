@@ -11,10 +11,6 @@ import java.util.UUID;
 public final class CustomerDefinition implements UUIDEntityDefinition {
     private final UUID id;
 
-    public UUID getId() {
-        return id;
-    }
-
     @Override
     public SecuredEntityQualifier getQualifier() {
         return SecuredEntityQualifier.CUSTOMER;

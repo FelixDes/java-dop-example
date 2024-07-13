@@ -7,16 +7,12 @@ import lombok.Data;
 
 @Data
 public final class PurchaseDefinition implements LongIdEntityDefinition {
-    private final long id;
+    private final Long id;
 
     @JsonCreator
     public PurchaseDefinition(long id) {
         if (id < 0) throw new IllegalArgumentException("id must be positive");
         this.id = id;
-    }
-
-    public Long getId() {
-        return id;
     }
 
     @Override
