@@ -7,7 +7,7 @@ import org.springframework.data.annotation.Id;
 import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.*;
 
 @Data
-public final class ProductProperties implements SecuredEntity {
+public final class ProductProperties implements SecuredEntity<Long> {
     @Id
     private final Long id;
     private final String propKey;

@@ -12,7 +12,7 @@ import java.util.UUID;
 import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.*;
 
 @Data
-public final class Purchase implements SecuredEntity {
+public final class Purchase implements SecuredEntity<Long> {
     @Id
     private final Long id;
     @MappedCollection(idColumn = "PURCHASE_ID")

@@ -1,6 +1,7 @@
 package com.jug.joker.javadopexample.service;
 
 import com.jug.joker.javadopexample.api.dto.AccessCheckRequest;
+import com.jug.joker.javadopexample.service.fetcher.SecuredEntityByDefinitionRegistryFetcher;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;

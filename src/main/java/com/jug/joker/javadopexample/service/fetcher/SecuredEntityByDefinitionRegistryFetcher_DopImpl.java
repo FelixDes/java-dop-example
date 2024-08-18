@@ -1,4 +1,4 @@
-package com.jug.joker.javadopexample.service;
+package com.jug.joker.javadopexample.service.fetcher;
 
 import com.jug.joker.javadopexample.api.dto.definition.*;
 import com.jug.joker.javadopexample.model.SecuredEntity;
@@ -15,14 +15,16 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @Service
-public class SecuredEntityByDefinitionRegistryFetcher {
+public class SecuredEntityByDefinitionRegistryFetcher_DopImpl implements SecuredEntityByDefinitionRegistryFetcher {
     private final CustomerRepository customerRepository;
     private final ProductRepository productRepository;
     private final PurchaseRepository purchaseRepository;
     private final ProductPropertiesIntegrationService productPropertiesIntegrationService;
 
-    public Optional<? extends SecuredEntity> findEntityByDefinition(EntityDefinition<?> entityDefinition) {
-        Optional<? extends SecuredEntity> result;
+    @SuppressWarnings("unchecked")
+    @Override
+    public <T> Optional<? extends SecuredEntity<T>> findEntityByDefinition(EntityDefinition<T> entityDefinition) {
+        Optional<? extends SecuredEntity<?>> result;
 
         if (entityDefinition instanceof LongIdEntityDefinition) {
             var longIdEntityDefinition = (LongIdEntityDefinition) entityDefinition;
@@ -44,13 +46,14 @@ public class SecuredEntityByDefinitionRegistryFetcher {
         } else if (entityDefinition instanceof UUIDEntityDefinition) {
             var uuidEntityDefinition = (UUIDEntityDefinition) entityDefinition;
             if (uuidEntityDefinition instanceof CustomerDefinition) {
-                result = customerRepository.findById(((CustomerDefinition) entityDefinition).getId());
+                var customerDefinition = (CustomerDefinition) uuidEntityDefinition;
+                result = customerRepository.findById(customerDefinition.getId());
             } else {
                 throw new RuntimeException("Not expected");
             }
         } else {
             throw new RuntimeException("Not expected");
         }
-        return result;
+        return (Optional<? extends SecuredEntity<T>>) result;
     }
 }

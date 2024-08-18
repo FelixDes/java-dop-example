@@ -9,7 +9,7 @@ import java.util.UUID;
 import static com.jug.joker.javadopexample.api.dto.SecuredEntityQualifier.*;
 
 @Data
-public final class Customer implements SecuredEntity {
+public final class Customer implements SecuredEntity<UUID> {
     @Id
     private final UUID id;
     private final String name;
